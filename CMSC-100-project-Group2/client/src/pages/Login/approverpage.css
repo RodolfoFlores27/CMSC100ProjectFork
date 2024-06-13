@@ -1,0 +1,8 @@
+.login-container {
+    width: 50%;
+    margin-top: 100px;
+}
+
+.selected-row {
+    border: 3px solid black;
+}

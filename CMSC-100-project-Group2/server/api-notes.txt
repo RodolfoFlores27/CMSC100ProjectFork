@@ -1,0 +1,258 @@
+CMSC 100 Backend API notes
+
+(note: add http://localhost:3001 before the path)
+example:
+axios.post(
+    "http://localhost:3001/register",       // first parameter
+    {                                       // second parameter (body)
+        firstName: <value>,
+        middleName: <value>,
+        lastName: <value>,
+        studentNumber: <value>,
+        userType: <value>,
+        email: <value>,
+        password: <value>
+    }
+)
+
+-- use axios.get() for get requests
+
+
+                _   _                _   _           _   _             
+     /\        | | | |              | | (_)         | | (_)            
+    /  \  _   _| |_| |__   ___ _ __ | |_ _  ___ __ _| |_ _  ___  _ __  
+   / /\ \| | | | __| '_ \ / _ \ '_ \| __| |/ __/ _` | __| |/ _ \| '_ \ 
+  / ____ \ |_| | |_| | | |  __/ | | | |_| | (_| (_| | |_| | (_) | | | |
+ /_/    \_\__,_|\__|_| |_|\___|_| |_|\__|_|\___\__,_|\__|_|\___/|_| |_|
+                                                                       
+                                                               
+POST /register
+    -- to register a user
+
+    body: {
+        firstName: String,
+        middleName: String,
+        lastName: String,
+        studentNumber: String,
+        userType: String,   -- Student, Adviser, ClearanceOfficer, Admin
+        email: String,
+        password: String, -- will be encrypted
+    }
+
+    response:   {success: true} if successful
+                {success: false, errMessage: <error message>} if error
+                
+
+GET /find-user-by-id
+    -- find a user by id
+
+    body: {
+        userId: String  -- pass the _id of user
+    }
+
+    response:   {success: true, user: <user>} if success
+                {success: false, errMessage: "Error finding user"} if error
+
+
+POST /check-if-user-exists
+    -- given email or student number, check if the user exists
+
+    body: {
+        email: String (Optional),
+        studentNumber: String (Optional) 
+    }
+
+    response:   {success: true, result: <boolean>} if success
+                {success: false, errMessage: <error message>} if error
+
+
+GET /get-all-users
+    -- returns a list of all users
+
+    response:   {success: true, users: [<users>]} if success
+                {success: false, errMessage: <error message>} if error
+
+
+POST /login
+    -- to log in a user
+
+    body: {
+        email: String,
+        password: String
+    }
+
+    response:   {success: true, token: <token>, username: <username>} if successful
+                {success: false, errMessage: <error message>} if error
+
+
+POST /check-if-logged-in
+    -- check if a user is logged in
+    -- sample request
+        axios.post("http://localhost:3001/check-if-logged-in",
+            {},
+            {withCredentials: true}
+        )
+        .then(response => response.data)
+        .then(body => {
+            setIsLoggedIn(body.isLoggedIn);
+        })
+        .catch(err => alert(err.message));
+
+    response: {isLoggedIn: boolean}  either true (user is logged in) or false (not logged in)
+
+
+POST /set-adviser
+    -- set the adviser of a given studentId
+
+    body: {
+        studentId: String,
+        adviserId: String
+    }
+
+    response:   {success: true, updatedStudent: <student>} if success
+                {success: false, errMessage: <error message>} if error
+
+
+POST /edit-user
+    -- edit the user's first name, middle name (optional), and last name
+
+    body: {
+        userId: String,
+        firstName: String,
+        middleName: String (Optional),
+        lastName: String
+    }
+
+    response:   {success: true, updatedUser: <user>} if success
+                {success: false, errMessage: <error message>} if error
+           
+           
+POST /delete-user
+    -- delete a user
+
+    body: {
+        userId: String
+    }
+
+    response:   {success: true} if success
+                {success: false, errMessage: <error message>} if error
+
+                       _ _           _   _             
+     /\               | (_)         | | (_)            
+    /  \   _ __  _ __ | |_  ___ __ _| |_ _  ___  _ __  
+   / /\ \ | '_ \| '_ \| | |/ __/ _` | __| |/ _ \| '_ \ 
+  / ____ \| |_) | |_) | | | (_| (_| | |_| | (_) | | | |
+ /_/    \_\ .__/| .__/|_|_|\___\__,_|\__|_|\___/|_| |_|
+          | |   | |                                    
+          |_|   |_|                                    
+
+
+GET /get-all-applications
+    -- return a list of applications
+
+    response:   [applications] list of applications if successful
+                error message string if error
+
+
+POST /add-application
+    -- add an application
+
+    body: {
+        studentId: String,  -- student id that created the application
+        link: String        -- link of github
+    }
+
+    response:   {success: true} if successful
+                {success: false, errMessage: <error message>} if error
+
+
+POST /edit-application-status
+    -- edit the application status
+    -- possible values: [Open, Pending, Closed, Cleared];
+
+    body: {
+        applicationId: String,   -- id of the application to edit
+        status: String,          -- updated status
+        notificationMessage: String     -- the notification message
+    }
+
+    response:   {success: true, updatedApplication: <updated application>} if successful
+                {success: false, errMessage: <error message>} if error
+
+
+POST /edit-application-step
+    -- edit the application step
+    -- possible values: 1 (Pre adviser), 2 (Adviser), 3 (Clearance officer)
+
+    body: {
+        applicationId: String,  -- id of the application to edit
+        step: Number,           -- updated step given
+        notificationMessage: String     -- the notification message
+    }
+
+    response:   {success: true, updatedApplication: <updated application>} if successful
+                {success: false, errMessage: <error message>} if error
+
+
+POST /add-remarks-to-application
+    -- add remarks to an application
+
+    body: {
+        applicationId: String,  -- application id to add the remark(_id)
+        remark: String,         -- remark message
+        commenterId: String,    -- id of the commenter (adviser/clearance officer/student)
+        commenterFName: String, -- first name of the commenter 
+        commenterMName: String, -- middle name of the commenter 
+        commenterLName: String  -- last name of the commenter 
+    }
+
+    response:   {success: true, updatedApplication: <updated application>} if successful
+                {success: false, errMessage: <error message>} if error
+
+
+
+  _   _       _   _  __ _           _   _             
+ | \ | |     | | (_)/ _(_)         | | (_)            
+ |  \| | ___ | |_ _| |_ _  ___ __ _| |_ _  ___  _ __  
+ | . ` |/ _ \| __| |  _| |/ __/ _` | __| |/ _ \| '_ \ 
+ | |\  | (_) | |_| | | | | (_| (_| | |_| | (_) | | | |
+ |_| \_|\___/ \__|_|_| |_|\___\__,_|\__|_|\___/|_| |_|
+                                                      
+                                                      
+GET /get-all-notifications
+    -- returns a list of all notifications
+
+    response:   {success: true, notifications: [<list of all notifications>]} if successful
+                {success: false, errMessage: <error message>} if error
+
+
+GET /get-user-notifications
+
+    body: {
+        userId: String      -- user id
+    }
+
+    response:   {success: true, notifications: [<list of notifications>]} if successful
+                {success: false, errMessage: <error message>} if error
+
+
+POST /notification-read
+    -- set notification isRead to true
+
+    body: {
+        notificationId: String      -- notification id (_id)
+    }
+
+    response:   {success: true, notifications: <updated notification>} if successful
+                {success: false, errMessage: <error message>} if error
+
+
+POST /deleteNotification
+    -- delete the notification from collection and from the user list of notifications
+
+    body: {
+        notificationId: String      -- notification id (_id)
+    }
+
+    response:   {success: true} if successful
+                {success: false, errMessage: <error message>} if error

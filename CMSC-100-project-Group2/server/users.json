@@ -1,0 +1,61 @@
+[{
+  "_id": {
+    "$oid": "647fec05e62c50253be3a67e"
+  },
+  "firstName": "Admin",
+  "middleName": "",
+  "lastName": "Admin",
+  "studentNumber": "1",
+  "userType": "Admin",
+  "email": "admin@gmail.com",
+  "password": "$2b$10$IlGEsOb7DK/xfTjfyWiQo.kH0CdKgH0zlXDJCiajEDzTClkc.RKpy",
+  "applications": [],
+  "adviser": null,
+  "notifications": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "647fec3be62c50253be3a687"
+  },
+  "firstName": "John",
+  "middleName": "Middleton",
+  "lastName": "Smith",
+  "studentNumber": "2001-00001",
+  "userType": "Adviser",
+  "email": "adviser1@gmail.com",
+  "password": "$2b$10$Lu8xQQfJMY9c0rS64HC5leGbUia1Bvve117qRW881kCHuGfYsL5pu",
+  "applications": [],
+  "adviser": null,
+  "notifications": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "647fec62e62c50253be3a68a"
+  },
+  "firstName": "Clearance",
+  "middleName": "C",
+  "lastName": "Officer",
+  "studentNumber": "2001-12345",
+  "userType": "Clearance Officer",
+  "email": "clearance1@gmail.com",
+  "password": "$2b$10$jUEqYdgH7Ezcp239H8nGu.ZPt8jAk7Latg4ob7BRs3K4ttUgYo2PO",
+  "applications": [],
+  "adviser": null,
+  "notifications": [],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "647fee2b20f2cd9ca120e820"
+  },
+  "firstName": "Mark Lewis",
+  "middleName": "Salting",
+  "lastName": "Damalerio",
+  "studentNumber": "2020-03903",
+  "userType": "Student",
+  "email": "student1@gmail.com",
+  "password": "$2b$10$8yYOtkzKszuesbRAz/65JenCcCqj3ehSyZM4oyCn4Sxb74ncVwrIe",
+  "applications": [],
+  "adviser": null,
+  "notifications": [],
+  "__v": 0
+}]

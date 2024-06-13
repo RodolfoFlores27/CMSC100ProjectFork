@@ -1,0 +1,19 @@
+{
+  "name": "cmsc-100-project-group2",
+  "version": "1.0.0",
+  "description": "[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/qXKUO3-R)",
+  "main": "index.js",
+  "scripts": {
+     "dev": "nodemon server.js",
+    "client": "cd client && npm run start",
+    "start": "concurrently --kill-others-on-fail \"npm run dev\" \"npm run client\"",
+    "build-client": "cd client && npm run build",
+    "install-dependencies": "cd client && npm install && cd .. && npm install",
+    "deploy": "cd client && npm run build && cd .. && npm run start-server"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^8.1.0"
+  }
+}
